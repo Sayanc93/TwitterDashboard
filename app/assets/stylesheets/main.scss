@@ -1,0 +1,11 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.change-font {
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif
+}
+
+body {
+  padding-top: 100px;
+}
