@@ -6,10 +6,10 @@
 
 ***Tools used***:
 
-**twitter + tweetstream**: *login and streming api*
+**twitter**: *authentication and data*
 
-**ActionCable**: *To broadcast tweet counts in asynchronously in realtime*
+**ActionCable**: *To reload page when new data is available*
 
-**sidekiq + redis + parallel**: *To handle tracking job as background process in threads*
+**sidekiq + redis**: *To handle tracking job as background process in threads*
 
 *Note*: You'll need to run *Sidekiq* and *Redis server* alongwith *Rails server*. Also, you'll need to replace .env.sample file with .env with twitter oauth keys for omniauth to work.
