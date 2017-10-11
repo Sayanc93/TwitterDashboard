@@ -1,0 +1,71 @@
+<div class="col-sm-4">
+  <div class="hero-widget well well-sm">
+    <div class="icon">
+      <span class="glyphicon glyphicon-user"></span>
+    </div>
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Tweeters</div>
+      <!-- Table -->
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th class="col-md-3 text-center">Username</th>
+            <th class="col-md-3 text-center">Follower Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_user.popular_tweeters.each do |tweeter| %>
+            <tr>
+              <td class="text-muted"><%= link_to tweeter.username, tweeter.url, target: "_blank" %></td>
+              <td class="text-muted"><%= tweeter.follower_count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="col-sm-4">
+  <div class="hero-widget well well-sm">
+    <div class="icon">
+      <i class="glyphicon glyphicon-heart"></i>
+    </div>
+    <div class="text">
+      <label class="text-muted">Favorite Tweets</label>
+    </div>
+    <table>
+      <% current_user.favorite_tweets.each do |favorite_tweet| %>
+        <div><%= favorite_tweet.tweet_text %></div>
+        <div><%= link_to favorite_tweet.username, favorite_tweet.user_url, target: "_blank" %></div>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="col-sm-4">
+  <div class="hero-widget well well-sm">
+    <div class="icon">
+      <i class="glyphicon glyphicon-signal"></i>
+    </div>
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Trending Topics</div>
+      <!-- Table -->
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th class="col-md-3 text-center">Topic name</th>
+            <th class="col-md-3 text-center">Tweet Volume</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_user.trending_topics.each do |topic| %>
+            <tr>
+              <td class="text-muted"><%= link_to topic.name, topic_details_path(topic.id) %></td>
+              <td class="text-muted"><%= topic.tweet_volume %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>

@@ -7,11 +7,17 @@ class TwitterUpdateService
   end
 
   def update_user_data
-    update_user_favorite_tweets
-    update_user_trending_topics
-    update_user_popular_tweeters
+    update_twitter_data_in_parallel
     ActionCable.server.broadcast("#{user.id}_data",
                                  "data updated for user")
+  end
+
+  def update_twitter_data_in_parallel
+    Parallel.map(1..3, in_processes: 3, isolated: true) do |_|
+      update_user_favorite_tweets
+      update_user_trending_topics
+      update_user_popular_tweeters
+    end
   end
 
   def update_user_favorite_tweets
@@ -19,7 +25,8 @@ class TwitterUpdateService
     favorite_tweets.each do |tweet|
       user_favorite_tweet = user.favorite_tweets.find_by(tweet_text: tweet.text)
       user.favorite_tweets.create(tweet_text: tweet.text,
-                                  username: tweet.user.name) unless user_favorite_tweet
+                                  username: tweet.user.name,
+                                  user_url: tweet.user.url.to_s) unless user_favorite_tweet
     end
   end
 
@@ -45,7 +52,8 @@ class TwitterUpdateService
       else
         user.popular_tweeters.create(username: tweeter.user.name,
                                      follower_count: tweeter.user.followers_count,
-                                     twitter_id: tweeter.user.id)
+                                     twitter_id: tweeter.user.id,
+                                     url: tweeter.user.url.to_s)
       end
     end
   end

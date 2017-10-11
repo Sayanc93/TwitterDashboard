@@ -13,9 +13,7 @@ if (App.cable) {
     },
 
     received: function(data) {
-      console.log(data);
       if (data) {
-        console.log('asa');
         window.location.reload();
       }
     }

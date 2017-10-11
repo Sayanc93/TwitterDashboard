@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171010222708) do
   create_table "favorite_tweets", force: :cascade do |t|
     t.text "tweet_text"
     t.string "username"
+    t.string "user_url"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171010222708) do
     t.string "follower_count"
     t.bigint "user_id"
     t.string "twitter_id"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_popular_tweeters_on_user_id"

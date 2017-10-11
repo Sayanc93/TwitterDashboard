@@ -29,6 +29,7 @@ gem 'redis-rails'
 gem 'redis-namespace'
 
 gem 'parallel'
+gem 'whenever'
 
 group :development, :test do
   gem 'dotenv-rails'

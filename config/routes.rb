@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
   post 'dashboard', to: 'dashboard#create'
 
+  get 'topic_details/:id', to: 'topic_details#show', as: 'topic_details'
+
   match 'auth/:provider/callback', to: 'sessions#create', via: :get
   delete 'session/destroy', to: 'sessions#destroy'
 

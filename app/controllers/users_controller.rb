@@ -7,11 +7,4 @@ class UsersController < ApplicationController
   # PATCH/PUT /user/1
   def update
   end
-
-  private
-
-    # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.permit(:user_id, hashtags: [])
-    end
 end

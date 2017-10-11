@@ -1,0 +1,36 @@
+<div class="jumbotron container">
+  <%= link_to "<< go back to dashboard", dashboard_path, class: "text-muted" %>
+  <div class="row counter-display">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="hero-widget well well-sm">
+        <div class="icon">
+          <i class="glyphicon glyphicon-signal"></i>
+        </div>
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading"><%= @topic.name %> tweets | volume: <%= @topic.tweet_volume %></div>
+          <!-- Table -->
+          <table class="table table-condensed">
+            <thead>
+              <th class="col-md-3 text-center">tweet</th>
+              <th class="col-md-3 text-center">by</th>
+              <th class="col-md-3 text-center">through device</th>
+            </thead>
+            <tbody>
+              <% @topic_tweets.each do |tweet| %>
+                <tr>
+                  <td><%= tweet.text %></th>
+                  <td><%= tweet.user.name %></th>
+                  <td><%= ActionView::Base.full_sanitizer.sanitize(tweet.source) %></th>
+                </tr>
+              <% end %>
+            </tbody>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
