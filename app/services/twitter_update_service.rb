@@ -13,20 +13,24 @@ class TwitterUpdateService
   end
 
   def update_twitter_data_in_parallel
-    Parallel.map(1..3, in_processes: 3, isolated: true) do |_|
-      update_user_favorite_tweets
-      update_user_trending_topics
-      update_user_popular_tweeters
-    end
+    update_user_favorite_tweets
+    update_user_trending_topics
+    update_user_popular_tweeters
   end
 
   def update_user_favorite_tweets
     favorite_tweets = client.favorites.take(5)
-    favorite_tweets.each do |tweet|
-      user_favorite_tweet = user.favorite_tweets.find_by(tweet_text: tweet.text)
-      user.favorite_tweets.create(tweet_text: tweet.text,
-                                  username: tweet.user.name,
-                                  user_url: tweet.user.url.to_s) unless user_favorite_tweet
+    favorite_tweets.each_with_index do |tweet|
+      saved_tweet = user.favorite_tweets.find_by(tweet_text: tweet.text)
+      if saved_tweet.present?
+        saved_tweet.update_attributes(tweet_text: tweet.text,
+                                      username: tweet.user.name,
+                                      user_url: tweet.user.url.to_s)
+      else
+        user.favorite_tweets.create(tweet_text: tweet.text,
+                                    username: tweet.user.name,
+                                    user_url: tweet.user.url.to_s)
+      end
     end
   end
 
